@@ -34,12 +34,16 @@ const Page = () => {
     },
   });
 
-  const handleSignInError = (error: unknown) => {
+  const handleSignInError = (error: string | { message?: string } | null) => {
     let errorMessage = "An error occurred";
+
     if (error === "CredentialsSignin") {
       errorMessage = "Incorrect username or password";
+    } else if (typeof error === "object" && error !== null && error.message) {
+      errorMessage = error.message;
     } else {
-      const match = error.match(/Error:\s*(.*)/);
+      const match =
+        typeof error === "string" ? error.match(/Error:\s*(.*)/) : null;
       if (match) {
         errorMessage = match[1];
       }
