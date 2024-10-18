@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import phone from "@/images/illustration-phone-mockup.svg";
@@ -17,21 +17,31 @@ import LinkedInicon from "@/images/icon-linkedin.svg";
 import FaceBookicon from "@/images/icon-facebook.svg";
 import FrontEndManagericon from "@/images/icon-frontend-mentor.svg";
 import FreeCodeCampicon from "@/images/icon-freecodecamp.svg";
-interface Links{
-  title:string;
-  url:string;
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DraggableProvided,
+  DroppableProvided,
+} from "react-beautiful-dnd";
+import "./DragAndDrop.css";
+import { gsap } from "gsap";
+
+interface Links {
+  title: string;
+  url: string;
 }
 
-interface Icons{
-  [key:string]:string;
+interface Icons {
+  [key: string]: string;
 }
-interface Ragexmatch{
-  [key:string]:RegExp;
+interface Ragexmatch {
+  [key: string]: RegExp;
 }
-interface DBLinks{
-  _id:string;
-  title:string;
-  url:string;
+interface DBLinks {
+  _id: string;
+  title: string;
+  url: string;
 }
 function HomeScreen() {
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
@@ -43,7 +53,7 @@ function HomeScreen() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [linkCount, setLinkCount] = useState<number>(0);
-  const platformIcons:Icons = {
+  const platformIcons: Icons = {
     GitHub: GitHubicon,
     YouTube: YouTubeicon,
     LinkedIn: LinkedInicon,
@@ -52,30 +62,29 @@ function HomeScreen() {
     FreeCodeCamp: FreeCodeCampicon,
   };
 
+  const fetchLinks = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:3000/api/getlinks");
+      setLinks(response.data.data);
+    } catch (error) {
+      console.error("Error fetching links:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchLinks = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get("http://localhost:3000/api/getlinks");
-        setLinks(response.data.data);
-        // console.log("link", response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching links:", error);
-        setLoading(false);
-      }
-    };
-    fetchLinks();
-  }, [links.length]);
+    fetchLinks(); 
+  }, []); 
 
   const addNewLink = () => {
     setLinkCount((prevCount) => prevCount + 1);
     setActive(true);
   };
 
- 
-  const validateURL = (title:string, url:string) => {
-    const platformPatterns:Ragexmatch = {
+  const validateURL = (title: string, url: string) => {
+    const platformPatterns: Ragexmatch = {
       GitHub: /^https:\/\/(www\.)?github\.com\/[A-z0-9_-]+\/?$/,
       YouTube: /^https:\/\/(www\.)?youtube\.com\/[A-z0-9_-]+\/?$/,
       LinkedIn: /^https:\/\/(www\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?$/,
@@ -85,7 +94,7 @@ function HomeScreen() {
       FreeCodeCamp: /^https:\/\/(www\.)?freecodecamp\.org\/[A-z0-9_-]+\/?$/,
     };
 
-    const pattern:RegExp = platformPatterns[title];
+    const pattern: RegExp = platformPatterns[title];
     return pattern ? pattern.test(url) : false;
   };
 
@@ -124,12 +133,12 @@ function HomeScreen() {
         toast.error(result.message, { position: "bottom-right" });
       }
     } catch (error: unknown) {
-      toast.error(`${error as string}` ,{ position: "bottom-right" });
+      toast.error(`${error as string}`, { position: "bottom-right" });
     }
     setSubmitLoading(false);
   };
 
-  const getBgColor = (title:string) => {
+  const getBgColor = (title: string) => {
     switch (title) {
       case "YouTube":
         return "bg-red-600";
@@ -142,10 +151,49 @@ function HomeScreen() {
       case "FreeCodeCamp":
         return "bg-green-600";
       default:
-        return "bg-green-400"; 
+        return "bg-green-400";
     }
   };
+  const draggingItem = useRef(null);
+  const dragOverItem = useRef(null);
 
+  const onDragStart = (index:any) => {
+    draggingItem.current = index;
+  };
+
+  const onDragEnter = (index:any) => {
+    dragOverItem.current = index;
+  };
+
+  const onDragEnd = () => {
+    const updatedLinks = [...links];
+    //@ts-ignore
+    const draggedItemContent = updatedLinks[draggingItem.current];
+
+    //@ts-ignore
+    updatedLinks.splice(draggingItem.current, 1);
+   
+    //@ts-ignore
+    updatedLinks.splice(dragOverItem.current, 0, draggedItemContent);
+
+    setLinks(updatedLinks);
+    draggingItem.current = null; 
+    dragOverItem.current = null; 
+  };
+//@ts-ignore
+  const handleDrag = (event) => {
+    const target = event.target;
+
+    if (target) {
+      gsap.to(target, {
+        scale: 1.05,
+        duration: 0.1,
+        onComplete: () => {
+          gsap.to(target, { scale: 1, duration: 0.1 });
+        },
+      });
+    }
+  };
   return (
     <div className="flex w-full mx-auto h-full justify-evenly">
       <div className="max-lg:hidden lg:mt-16 w-5/12 h-[550px] items-center flex justify-center relative">
@@ -154,10 +202,9 @@ function HomeScreen() {
 
         {/* Links Container */}
         <div className="relative flex flex-col overflow-y-auto min-h-[280px] max-h-[280px] items-center gap-4 mt-[200px] bg-red-00">
-          {links.map((link:Links, index:number) => (
+          {links.map((link: Links, index: number) => (
             <div
               key={index}
-             
               className={`w-[210px] ${getBgColor(
                 link?.title
               )} h-11 flex items-center justify-between rounded-lg p-2`}
@@ -240,21 +287,28 @@ function HomeScreen() {
                   ))}
                 </div>
               )}
-              {links.length > 0 && (
-                <div className="">
-                  {links.map((link:DBLinks, index:number) => (
-                    <div key={link?._id} className="h-full w-full  p-2">
-                      <DisplayLinkCard
-                        linkId={link?._id}
-                        idx={index + 1}
-                        title={link?.title}
-                        url={link?.url}
-                        setLinks={setLinks}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="w-full overflow-x-hidden border-2 rounded-xl  mx-auto link-list">
+                {links.map((link, index) => (
+                  <div
+                    key={link._id}
+                    draggable
+                    onDragStart={() => onDragStart(index)}
+                    onDragEnter={() => onDragEnter(index)}
+                    onDragEnd={onDragEnd}
+                    onDragOver={(event) => event.preventDefault()} 
+                    onMouseEnter={handleDrag} 
+                    className="draggable-item "
+                  >
+                    <DisplayLinkCard
+                      linkId={link._id}
+                      idx={index + 1}
+                      title={link.title}
+                      url={link.url}
+                      setLinks={setLinks}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

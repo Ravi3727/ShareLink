@@ -163,7 +163,7 @@ function DisplayLinkCard({
   };
 
   return (
-    <div className="bg-white w-full md:w-[80%] mx-auto h-full overflow-y-auto p-2 rounded-md">
+    <div className="bg-white w-full md:w-[80%] overflow-x-hidden mx-auto h-full overflow-y-auto p-2 rounded-md">
       <div className="flex w-full justify-between items-center mb-4">
         <div className="text-sm md:text-md font-semibold text-gray-600">Link #{idx}</div>
         <div className="flex  w-24 md:w-32 justify-between">
