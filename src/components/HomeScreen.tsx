@@ -6,7 +6,7 @@ import phone from "@/images/illustration-phone-mockup.svg";
 import AddLinks from "./AddLinks";
 import NoLinkView from "./NoLinkView";
 import axios from "axios";
-import { Link, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DisplayLinkCard from "./DisplayLinkCard";
@@ -17,17 +17,33 @@ import LinkedInicon from "@/images/icon-linkedin.svg";
 import FaceBookicon from "@/images/icon-facebook.svg";
 import FrontEndManagericon from "@/images/icon-frontend-mentor.svg";
 import FreeCodeCampicon from "@/images/icon-freecodecamp.svg";
+interface Links{
+  title:string;
+  url:string;
+}
+
+interface Icons{
+  [key:string]:string;
+}
+interface Ragexmatch{
+  [key:string]:RegExp;
+}
+interface DBLinks{
+  _id:string;
+  title:string;
+  url:string;
+}
 function HomeScreen() {
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [active, setActive] = useState(false);
-  const [links, setLinks] = useState<any>([]);
-  const [newLinkData, setNewLinkData] = useState({
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
+  const [links, setLinks] = useState<DBLinks[]>([]);
+  const [newLinkData, setNewLinkData] = useState<Links>({
     title: "GitHub",
     url: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [linkCount, setLinkCount] = useState(0);
-  const platformIcons:any = {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [linkCount, setLinkCount] = useState<number>(0);
+  const platformIcons:Icons = {
     GitHub: GitHubicon,
     YouTube: YouTubeicon,
     LinkedIn: LinkedInicon,
@@ -58,8 +74,8 @@ function HomeScreen() {
   };
 
  
-  const validateURL = (title:any, url:any) => {
-    const platformPatterns:any = {
+  const validateURL = (title:string, url:string) => {
+    const platformPatterns:Ragexmatch = {
       GitHub: /^https:\/\/(www\.)?github\.com\/[A-z0-9_-]+\/?$/,
       YouTube: /^https:\/\/(www\.)?youtube\.com\/[A-z0-9_-]+\/?$/,
       LinkedIn: /^https:\/\/(www\.)?linkedin\.com\/in\/[A-z0-9_-]+\/?$/,
@@ -69,7 +85,7 @@ function HomeScreen() {
       FreeCodeCamp: /^https:\/\/(www\.)?freecodecamp\.org\/[A-z0-9_-]+\/?$/,
     };
 
-    const pattern:any = platformPatterns[title];
+    const pattern:RegExp = platformPatterns[title];
     return pattern ? pattern.test(url) : false;
   };
 
@@ -107,8 +123,8 @@ function HomeScreen() {
       } else {
         toast.error(result.message, { position: "bottom-right" });
       }
-    } catch (error) {
-      toast.error("Error saving link", { position: "bottom-right" });
+    } catch (error: unknown) {
+      toast.error(`${error as string}` ,{ position: "bottom-right" });
     }
     setSubmitLoading(false);
   };
@@ -138,32 +154,32 @@ function HomeScreen() {
 
         {/* Links Container */}
         <div className="relative flex flex-col overflow-y-auto min-h-[280px] max-h-[280px] items-center gap-4 mt-[200px] bg-red-00">
-          {links.map((link:any, index:number) => (
+          {links.map((link:Links, index:number) => (
             <div
               key={index}
              
               className={`w-[210px] ${getBgColor(
-                link.title
+                link?.title
               )} h-11 flex items-center justify-between rounded-lg p-2`}
             >
               <div className="w-5/12 flex items-center justify-between">
                 <div>
-                  {platformIcons[link.title] && (
+                  {platformIcons[link?.title] && (
                     <Image
-                      src={platformIcons[link.title]}
-                      alt={`${link.title} icon`}
+                      src={platformIcons[link?.title]}
+                      alt={`${link?.title} icon`}
                       className="w-6 h-6"
                     />
                   )}
                 </div>
                 <a
-                  href={link.url}
+                  href={link?.url}
                   className="text-sm font-druk font-semibold text-black-500"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <div className="text-sm font-druk text-white">
-                    {link.title}
+                    {link?.title}
                   </div>
                 </a>
               </div>
@@ -197,6 +213,9 @@ function HomeScreen() {
         {loading ? (
           <div className="w-10/12 md:min-h-[360px] md:max-h-[360px] overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
             <Loader2 className="animate-spin h-10 w-10 text-purple-900" />
+            <div className="text-lg leading-4 text-gray-500 font-druk font-semibold">
+              Loading your links...
+            </div>
           </div>
         ) : (
           <div className="w-10/12 md:min-h-[360px] md:max-h-[360px] overflow-y-auto  items-center flex justify-center flex-col rounded-xl mx-auto">
@@ -223,7 +242,7 @@ function HomeScreen() {
               )}
               {links.length > 0 && (
                 <div className="">
-                  {links.map((link:any, index:number) => (
+                  {links.map((link:DBLinks, index:number) => (
                     <div key={link?._id} className="h-full w-full  p-2">
                       <DisplayLinkCard
                         linkId={link?._id}

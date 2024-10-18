@@ -28,7 +28,7 @@ export async function GET() {
       );
     }
 
-    console.log('User found:', user.links);
+    // console.log('User found:', user.links);
 
     return NextResponse.json(
       { message: `Links fetched successfully`, success: true,data:user.links },

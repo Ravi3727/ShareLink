@@ -24,7 +24,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Page = () => {
   const router = useRouter();
-  // const { data: session, status } = useSession();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -35,7 +34,7 @@ const Page = () => {
     },
   });
 
-  const handleSignInError = (error: any) => {
+  const handleSignInError = (error: unknown) => {
     let errorMessage = "An error occurred";
     if (error === "CredentialsSignin") {
       errorMessage = "Incorrect username or password";

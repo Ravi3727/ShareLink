@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Loader2 } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import GitHubicon from "@/images/icon-github.svg";
 import YouTubeicon from "@/images/icon-youtube.svg";
@@ -10,8 +9,10 @@ import FaceBookicon from "@/images/icon-facebook.svg";
 import FrontEndManagericon from "@/images/icon-frontend-mentor.svg";
 import FreeCodeCampicon from "@/images/icon-freecodecamp.svg";
 import IconDown from "@/images/icon-chevron-down.svg";
-
-const platformIcons:any = {
+interface Icons{
+    [key:string]:string;
+  }
+const platformIcons:Icons = {
   GitHub: GitHubicon,
   YouTube: YouTubeicon,
   LinkedIn: LinkedInicon,
@@ -20,11 +21,24 @@ const platformIcons:any = {
   FreeCodeCamp: FreeCodeCampicon,
 };
 
-function AddLinks({ setLinkCount, setNewLinkData }:any) {
-  const [active, setActive] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [title, setTitle] = useState(""); // Track selected platform
-  const [url, setUrl] = useState(""); // Track URL input
+interface Links {
+  title: string;
+  url: string;
+}
+interface LinkCountProps {
+  setLinkCount: React.Dispatch<React.SetStateAction<number>>;
+  setNewLinkData: React.Dispatch<React.SetStateAction<Links>>; 
+}
+
+interface newLinks{
+  target:{
+    value:string;
+  }
+}
+function AddLinks({ setLinkCount, setNewLinkData }:LinkCountProps) {
+  const [active, setActive] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>(""); 
+  const [url, setUrl] = useState<string>(""); 
   const platforms = [
     "GitHub",
     "YouTube",
@@ -35,13 +49,13 @@ function AddLinks({ setLinkCount, setNewLinkData }:any) {
   ];
 
   // Function to handle platform selection
-  const handlePlatformSelect = (selectedPlatform:any) => {
+  const handlePlatformSelect = (selectedPlatform:string) => {
     setTitle(selectedPlatform);
     setNewLinkData({ title: selectedPlatform, url });
     setActive(false);
   };
 
-  const handleUrlChange = (e:any) => {
+  const handleUrlChange = (e:newLinks) => {
     setUrl(e.target.value);
     setNewLinkData({ title, url: e.target.value });
   };
@@ -57,11 +71,10 @@ function AddLinks({ setLinkCount, setNewLinkData }:any) {
           Add a New Link
         </div>
         <button
-          disabled={loading}
           onClick={handleRemove}
           className="text-md font-semibold text-red-600"
         >
-          {loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Remove"}
+          {"Remove"}
         </button>
       </div>
 

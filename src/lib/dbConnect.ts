@@ -20,9 +20,8 @@ export async function dbConnect(): Promise<void> {
 
         console.log("DB connection established");
 
-    } catch (error) {
-        //@ts-ignore
-        console.log("database connection failed ", + error.message);
+    } catch (error:unknown) {
+        console.log("database connection failed ",  error as string);
         process.exit(1);
     }
 }

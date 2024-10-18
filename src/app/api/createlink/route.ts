@@ -4,7 +4,19 @@ import UserModel from "@/models/User";
 import { getServerSession } from 'next-auth/next';
 import { User } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]/options';
+import {  Document } from "mongoose";
 
+interface Link2 {
+    title: string;
+    url: string;
+    createdAt: Date;
+}
+
+interface Link3 extends Document {
+    title: string;
+    url: string;
+    createdAt: Date;
+}
 export async function POST(request: NextRequest) {
     await dbConnect();
     const session = await getServerSession(authOptions);
@@ -35,14 +47,14 @@ export async function POST(request: NextRequest) {
                 { status: 404 }
             );
         }
-
     
-        const newLink:any = { title, url, createdAt: new Date() };
+      
+        const newLink:Link2 = { title, url, createdAt: new Date() };
         
-        console.log("User before", user);
-        user.links.push(newLink);
+        // console.log("User before", user);
+        user.links.push(newLink as Link3);
         await user.save(); 
-        console.log("User after", user);
+        // console.log("User after", user);
         return NextResponse.json(
             { message: 'Link created successfully', success: true, data: newLink },
             { status: 200 }
