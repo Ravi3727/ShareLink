@@ -97,7 +97,7 @@ function Page() {
     <>
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="w-[80%] mx-auto h-full overflow-y-auto p-4 rounded-md shadow-md">
-          <div className="flex w-full justify-end items-center mb-4">
+          <div className="flex w-full justify-center md:justify-end items-center mb-4">
             <Link href="/">
               <div className="text-md border-2 border-solid bg-purple-600 hover:bg-purple-800 w-36 p-3 items-center justify-center flex rounded-lg font-semibold text-white h-12 ">
                 Add New Link
@@ -116,7 +116,7 @@ function Page() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col w-8/12 mt-4 mx-auto">
+              <div className="flex flex-col w-full md:w-8/12 mt-4 mx-auto">
                 {links.map((link: Links, idx: number) => (
                   <div
                     key={idx}
@@ -143,11 +143,11 @@ function Page() {
                         href={link.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-white underline"
+                        className="text-white"
                       >
                         Visit
                       </a>
-                      <button onClick={() => handleRemove(link?._id)} className="ml-4 text-red-500">
+                      <button onClick={() => handleRemove(link?._id)} className="ml-4 text-white">
                         Remove
                       </button>
                     </div>
@@ -159,7 +159,7 @@ function Page() {
           </div>
           {
               links.length === 0 && !loading && (
-                <div className="text-gray-500 font-druk leading-6 mx-auto font-semibold text-lg flex  w-8/12 items-center justify-center">
+                <div className="text-gray-500 font-druk leading-6 mx-auto font-semibold text-lg flex w-10/12 md:w-8/12 items-center justify-center text-center">
                   No links found. Add a new link to get started.
                 </div>
               )

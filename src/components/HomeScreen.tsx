@@ -204,21 +204,21 @@ function HomeScreen() {
         <div className="w-10/12 mx-auto">
           <Button
             onClick={addNewLink}
-            className="text-purple-800 hover:shadow-[0_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] w-full bg-white font-bold border-2 border-purple-600 rounded-lg hover:bg-purple-100"
+            className="text-purple-800  hover:shadow-xl md:hover:shadow-[0_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] w-full bg-white font-bold border-2 border-purple-600 rounded-lg hover:bg-purple-100"
           >
             + Add new link
           </Button>
         </div>
 
         {loading ? (
-          <div className="w-10/12 md:min-h-[360px] md:max-h-[360px] overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
+          <div className="w-10/12 min-h-[360px] max-h-[360px]  overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
             <Loader2 className="animate-spin h-10 w-10 text-purple-900" />
             <div className="text-lg leading-4 text-gray-500 font-druk font-semibold">
               Loading your links...
             </div>
           </div>
         ) : (
-          <div className="w-10/12 md:min-h-[360px] md:max-h-[360px] overflow-y-auto  items-center flex justify-center flex-col rounded-xl mx-auto">
+          <div className="w-10/12 min-h-[360px] max-h-[360px] overflow-y-auto  items-center flex justify-center flex-col rounded-xl mx-auto">
             {active === false && links.length === 0 ? (
               <div className="flex flex-col gap-4">
                 <NoLinkView />
@@ -227,9 +227,9 @@ function HomeScreen() {
               ""
             )}
 
-            <div className="relative flex flex-col justify-evenly h-full overflow-y-auto w-full ">
+            <div className="relative flex flex-col justify-evenly h-full max-sm:h-[370px] overflow-y-auto w-full ">
               {active === true && (
-                <div className="mt-4">
+                <div className="mt-4 ">
                   {[...Array(linkCount)].map((_, index) => (
                     <div key={index} className="mb-4">
                       <AddLinks

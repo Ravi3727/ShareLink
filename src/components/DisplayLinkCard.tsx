@@ -163,20 +163,20 @@ function DisplayLinkCard({
   };
 
   return (
-    <div className="bg-white w-[80%] mx-auto h-full overflow-y-auto p-2 rounded-md">
+    <div className="bg-white w-full md:w-[80%] mx-auto h-full overflow-y-auto p-2 rounded-md">
       <div className="flex w-full justify-between items-center mb-4">
-        <div className="text-md font-semibold text-gray-600">Link #{idx}</div>
-        <div className="flex w-32 justify-between">
+        <div className="text-sm md:text-md font-semibold text-gray-600">Link #{idx}</div>
+        <div className="flex  w-24 md:w-32 justify-between">
           <button
             disabled={loading}
             onClick={handleRemove}
-            className="text-md font-semibold text-red-600"
+            className="text-sm md:text-md font-semibold text-red-600"
           >
             {loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Delete"}
           </button>
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="text-md font-semibold text-gray-600"
+            className="text-sm md:text-md font-semibold text-gray-600"
           >
             {isEditing ? "Cancel" : "Update"}
           </button>

@@ -65,7 +65,7 @@ function AddLinks({ setLinkCount, setNewLinkData }:LinkCountProps) {
   };
 
   return (
-    <div className=" w-[80%] mx-auto h-full overflow-y-auto p-4 rounded-md shadow-md">
+    <div className="w-full md:w-[80%] mx-auto h-full overflow-y-auto p-4 rounded-md shadow-md">
       <div className="flex w-full justify-between items-center mb-4">
         <div className="text-md font-semibold text-gray-600">
           Add a New Link

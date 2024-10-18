@@ -60,15 +60,15 @@ const Page = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-white">
-      <div className="w-full max-w-md p-8 space-y-8 rounded-lg shadow-md">
+      <div className="w-11/12 md:w-full max-w-md p-4 md:p-8 space-y-8 rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-black">Reset password</h1>
-          <p className="text-md text-black mt-4">
+          <h1 className="text-2xl md:text-4xl font-bold text-black">Reset password</h1>
+          <p className="text-md text-purple-600 mt-4">
             Enter the code sent to your email
           </p>
         </div>
 
-        <div className="ml-14 text-black font-semibold">
+        <div className="md:ml-14 text-black font-semibold">
           <InputOTP
             maxLength={6}
             value={value}

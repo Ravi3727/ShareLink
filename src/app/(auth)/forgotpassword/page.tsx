@@ -111,7 +111,7 @@ const Page = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen bg-slate-100">
-        <div className="flex flex-col items-center justify-center w-8/12 max-w-md bg-white  rounded-lg mt-20">
+        <div className="flex flex-col items-center justify-center w-10/12 md:w-8/12 max-w-md bg-white  rounded-lg mt-20">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-5 text-black opacity-90 mt-4">
               Reset Password
