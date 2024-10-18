@@ -6,7 +6,7 @@ export interface Link extends Document {
     createdAt: Date;
 }
 
-const LinkSchema:Schema<Link> = new Schema({
+const LinkSchema: Schema<Link> = new Schema({
     title: { type: String, required: [true, "Title is required"] },
     url: { type: String, required: [true, "URL is required"] },
     createdAt: { type: Date, required: true, default: Date.now }
@@ -20,6 +20,9 @@ export interface User extends Document {
     verifyCodeExpiry: Date;
     isVerified: boolean;
     links: Link[];
+    resetPasswordverifyCode: string;
+    resetPasswordverifyCodeExpiry: Date;
+    isResetPasswordVerified: boolean;
     createdAt: Date;
 }
 
@@ -39,10 +42,22 @@ const UserSchema: Schema<User> = new Schema({
         type: Boolean,
         default: false,
     },
-    links:[{
+    links: [{
         type: LinkSchema,
         required: false,
     }],
+    resetPasswordverifyCode: {
+        type: String,
+        required: false,
+    },
+    resetPasswordverifyCodeExpiry: {
+        type: Date,
+        required: false,
+    },
+    isResetPasswordVerified: {
+        type: Boolean,
+        default: false,
+    },
     createdAt: { type: Date, required: true, default: Date.now }
 });
 

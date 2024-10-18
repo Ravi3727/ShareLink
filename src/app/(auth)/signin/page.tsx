@@ -165,7 +165,7 @@ const Page = () => {
             <p>
               Forgot password?{" "}
               <Link
-                href="/ResetPassword"
+                href="/forgotpassword"
                 className="text-purple-600 hover:text-purple-800"
               >
                 Reset Password

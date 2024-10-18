@@ -42,7 +42,7 @@ const Page = () => {
 
   useEffect(() => {
 
-    console.log("response : ",username);
+    // console.log("response : ",username);
     const userNameUniqueness = async () => {
       if (username) {
         setIsCheckingUsername(true);
@@ -51,13 +51,13 @@ const Page = () => {
 
       // Debouncing Logic
       try {
-        console.log("Inside try ", username);
+        // console.log("Inside try ", username);
         const response = await axios.get<ApiResponse>(
           `/api/checkUserNameUniqueness/${username}`
         );
 
         // let message = response.data.message;
-        console.log("response : ",response);
+        // console.log("response : ",response);
         setUsernameMsg(response.data.message);
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;

@@ -58,7 +58,7 @@ function HomeScreen() {
       try {
         const response = await axios.get("http://localhost:3000/api/getlinks");
         setLinks(response.data.data);
-        console.log("link", response.data.data);
+        // console.log("link", response.data.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching links:", error);

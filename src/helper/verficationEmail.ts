@@ -20,7 +20,7 @@ export async function sendVerificationEmail(
     const mailOptions = {
       from: process.env.MAIL_USER,
       to: email,
-      subject: 'Link Sharing Application - Verification Code',
+      subject: 'ShareLink Application - Verification Code',
       html: `
         <!DOCTYPE html>
         <html lang="en" dir="ltr">
@@ -65,7 +65,7 @@ export async function sendVerificationEmail(
     };
 
     const sendEmailStatus = await transporter.sendMail(mailOptions);
-    console.log("Email sent: ", sendEmailStatus);
+    // console.log("Email sent: ", sendEmailStatus);
     return { success: true, message: "Verification email sent successfully" };
 
   } catch (error) {

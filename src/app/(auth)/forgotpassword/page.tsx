@@ -39,11 +39,59 @@ const Page = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof forgotpasswordSchema>) => {
+    // Check if all required fields are present
+    if (!data.identifier || !data.newpassword || !data.confirmPassword) {
+      toast.error("Please enter all data", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      return; // Stop further execution if validation fails
+    }
+  
     setIsSubmitting(true);
     data.username = await session?.data?.user.username;
-    const result = await axios.post<ApiResponse>("/api/resetPassword", data);
-    if (result.data.success) {
-      toast.success("Please enter OTP to reset password", {
+  
+    try {
+      const result = await axios.post<ApiResponse>("/api/resetPassword", data);
+      if (result.data.success) {
+        toast.success("Please enter OTP to reset password", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        const email = data.identifier;
+        router.replace(`/verifyResetPassword/${email}`);
+      } else {
+        console.log("result", result);
+        // console.log(result.data.message);
+        toast.error(result.data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      console.error("Error during password reset:", error);
+      toast.error("An error occurred while resetting the password", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -54,26 +102,11 @@ const Page = () => {
         theme: "light",
         transition: Bounce,
       });
-      const email = data.identifier;
-      router.replace(`/verifyResetPassword/${email}`);
-      setIsSubmitting(false);
-    } else {
-      console.log("result", result);
-      console.log(result.data.message);
-      toast.error(result.data.message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+    } finally {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <>
