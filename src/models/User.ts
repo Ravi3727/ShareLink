@@ -1,14 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-
-
 export interface Link extends Document {
+    id: number;
     title: string;
     url: string;
     createdAt: Date;
 }
 
 const LinkSchema:Schema<Link> = new Schema({
+    id: Number,
     title: { type: String, required: [true, "Title is required"] },
     url: { type: String, required: [true, "URL is required"] },
     createdAt: { type: Date, required: true, default: Date.now }
@@ -41,7 +41,10 @@ const UserSchema: Schema<User> = new Schema({
         type: Boolean,
         default: false,
     },
-    links:[LinkSchema],
+    links:[{
+        type: LinkSchema,
+        required: false,
+    }],
     createdAt: { type: Date, required: true, default: Date.now }
 });
 

@@ -3,8 +3,26 @@ import Navbar from "@/components/Navbar";
 import AuthProvider from "@/Context/AuthProvider";
 import "@/app/globals.css";
 import dotenv from 'dotenv';
-
+import localfont from "next/font/local";
 dotenv.config();
+
+const druk = localfont({
+  src:[{
+    path : "../../fonts/static/InstrumentSans-Bold.ttf",
+    weight: "100 900",
+  },
+],
+variable:"--font-druk",
+})
+const InstrumentSans = localfont({
+  src:[{
+    path : "../../fonts/static/InstrumentSans-SemiBold.ttf",
+    weight: "100 900",
+  },
+],
+variable:"--font-instru",
+})
+
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
 //   variable: "--font-geist-sans",
@@ -29,7 +47,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <div className="w-[375px] h-[74px] mx-auto pl-[24px] pt-[16px] pr-[16px] pb-[16px]">
+          <div className={`${druk.variable,InstrumentSans.variable } w-full h-full  mx-auto p-2`}>
             <Navbar />
           </div>
           {children}
