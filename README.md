@@ -55,10 +55,10 @@ To get ShareLink running locally on your machine, follow these steps:
   #### Set Up Environment Variables: Create a .env file in the root of the project and add necessary environment variables, such as:
 
 #### DATABASE_URL =""  
-#### NEXTAUTH_SECRET="demosecret2" 
-#### MAIL_HOST="smtp.gmail.com" 
-#### MAIL_USER="rk3727000@gmail.com" 
-#### MAIL_PASS="yfpkutuiwoovnqsn"  
+#### NEXTAUTH_SECRET="" 
+#### MAIL_HOST="" 
+#### MAIL_USER="" 
+#### MAIL_PASS=""  
 
 ### Run the Development Server: Start the development server: 
 ```npm run dev```  
@@ -67,22 +67,23 @@ To get ShareLink running locally on your machine, follow these steps:
 #### Build the Project: If you want to build for production, use: 
 ```npm run build```  
 
-### Assumptions and Decisions  
-### Unique Username Check: I implemented debouncing when verifying if a username is unique. This reduces unnecessary API calls while typing.  
-### OTP-based Email Verification: To ensure emails are valid, I added a feature where users receive an OTP during signup, which they must confirm. 
-### Security: Passwords are hashed using Bcrypt, and JWT handles session tokens. 
-### Drag and Drop: I used react-beautiful-dnd to implement the drag-and-drop functionality, which makes managing links more intuitive. 
-### Resend for Emails: Instead of setting up a custom mail server, I decided to use Resend for sending emails. This made the implementation easier and more reliable. 
-### Key Routes 
+#### Assumptions and Decisions  
+#### Unique Username Check: I implemented debouncing when verifying if a username is unique. This reduces unnecessary API calls while typing.  
+#### OTP-based Email Verification: To ensure emails are valid, I added a feature where users receive an OTP during signup, which they must confirm. 
+#### Security: Passwords are hashed using Bcrypt, and JWT handles session tokens. 
+#### Drag and Drop: I used react-beautiful-dnd to implement the drag-and-drop functionality, which makes managing links more intuitive. 
+#### Resend for Emails: Instead of setting up a custom mail server, I decided to use Resend for sending emails. This made the implementation easier and more reliable. 
 
-### Here are some important routes for the API:
 
-#### /api/signup: Creates a new user in the database. 
-#### /api/signin: Logs in an existing user. 
-#### /api/resetPassword: Allows users to reset their password. 
-#### /api/verifyUniqueUsername: Checks if a username is already taken. 
-#### /api/sendVerifyOTP: Sends an OTP to the user’s email for verification. 
-#### /api/verifyOTP: Verifies the OTP entered by the user. 
+#### Key Routes  
+#### Here are some important routes for the API:
+
+##### /api/signup: Creates a new user in the database. 
+##### /api/signin: Logs in an existing user. 
+##### /api/resetPassword: Allows users to reset their password. 
+##### /api/verifyUniqueUsername: Checks if a username is already taken. 
+##### /api/sendVerifyOTP: Sends an OTP to the user’s email for verification. 
+##### /api/verifyOTP: Verifies the OTP entered by the user. 
 
 ### Final Thoughts 
 #### I built ShareLink to simplify link management and make it easy to organize all your important URLs in one place. The secure authentication and drag-and-drop interface make it easy to use, and the responsive design ensures it works on all devices. 
