@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ShareLink
 
-## Getting Started
+Welcome to **ShareLink**—a platform I built that lets you effortlessly organize and share your important links with just a click! It’s simple, responsive, and focuses on security with its built-in authorization. Below, I’ll walk you through the technologies I used, how you can run it locally, and a few decisions I made during development.
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Here’s a breakdown of the tech stack that powers ShareLink:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Frontend:
+- **TypeScript**: For better type safety and to catch errors early.
+- **Next.js**: For the React framework and server-side rendering.
+- **Tailwind CSS**: To handle styling, making everything responsive.
+- **GSAP**: For animations to add a bit of fun and smooth interactions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Backend:
+- **TypeScript**: Again, for safer code on the server side.
+- **Express.js**: To build the API and handle server-side logic.
+- **Node.js**: For the backend runtime environment.
+- **JWT**: Used for token-based authentication.
+- **Bcrypt**: For securely hashing passwords.
+- **Zod**: For data validation, ensuring the inputs are what we expect.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Database:
+- **MongoDB**: Stores all user data and links.
 
-## Learn More
+### Deployment:
+- **Vercel**: Used to host the frontend. You can check out the live app [here](https://oj-sigma.vercel.app/).
+  
+### Other Important Packages:
+- **Next-Auth**: For handling authentication.
+- **Resend Email**: For sending verification emails and OTPs.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Authentication and Authorization**: Implemented with **Next-Auth** for secure login.
+2. **User Dashboard**: After logging in, users can create, read, update, and delete links.
+3. **Drag and Drop**: Easily reorder links by dragging them.
+4. **Responsive Design**: Works on all screen sizes.
+5. **Hover Effects**: For smoother, interactive experience.
+6. **Database Integration**: All user data and links are saved securely in **MongoDB**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Running the Project Locally
 
-## Deploy on Vercel
+To get ShareLink running locally on your machine, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
+- Make sure you have **Node.js** and **npm** (or **yarn**) installed.
+- Clone the repository from GitHub: 
+  ```git clone https://github.com/Ravi3727/ShareLink.git``` 
+  ```cd ShareLink```   
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  ## Steps to Start the Project 
+  #### Install Dependencies: Run the following command to install all the required dependencies:
+  ```npm install``` 
+  #### Set Up Environment Variables: Create a .env file in the root of the project and add necessary environment variables, such as:
+
+#### DATABASE_URL =""  
+#### NEXTAUTH_SECRET="demosecret2" 
+#### MAIL_HOST="smtp.gmail.com" 
+#### MAIL_USER="rk3727000@gmail.com" 
+#### MAIL_PASS="yfpkutuiwoovnqsn"  
+
+### Run the Development Server: Start the development server: 
+```npm run dev```  
+#### The project should now be running on http://localhost:3000. 
+
+#### Build the Project: If you want to build for production, use: 
+```npm run build```  
+
+### Assumptions and Decisions  
+### Unique Username Check: I implemented debouncing when verifying if a username is unique. This reduces unnecessary API calls while typing.  
+### OTP-based Email Verification: To ensure emails are valid, I added a feature where users receive an OTP during signup, which they must confirm. 
+### Security: Passwords are hashed using Bcrypt, and JWT handles session tokens. 
+### Drag and Drop: I used react-beautiful-dnd to implement the drag-and-drop functionality, which makes managing links more intuitive. 
+### Resend for Emails: Instead of setting up a custom mail server, I decided to use Resend for sending emails. This made the implementation easier and more reliable. 
+### Key Routes 
+
+### Here are some important routes for the API:
+
+#### /api/signup: Creates a new user in the database. 
+#### /api/signin: Logs in an existing user. 
+#### /api/resetPassword: Allows users to reset their password. 
+#### /api/verifyUniqueUsername: Checks if a username is already taken. 
+#### /api/sendVerifyOTP: Sends an OTP to the user’s email for verification. 
+#### /api/verifyOTP: Verifies the OTP entered by the user. 
+
+### Final Thoughts 
+#### I built ShareLink to simplify link management and make it easy to organize all your important URLs in one place. The secure authentication and drag-and-drop interface make it easy to use, and the responsive design ensures it works on all devices. 
+
+#### If you have any feedback or ideas, feel free to reach out! You can also check out the website on (https://share-link-ivory.vercel.app) here. Thanks for checking out ShareLink!  
