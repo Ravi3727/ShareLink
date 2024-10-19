@@ -65,7 +65,7 @@ function HomeScreen() {
   const fetchLinks = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/api/getlinks");
+      const response = await axios.get("/api/getlinks");
       setLinks(response.data.data);
     } catch (error) {
       console.error("Error fetching links:", error);
@@ -115,7 +115,7 @@ function HomeScreen() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/createlink",
+        "/api/createlink",
         newLinkData
       );
       const result = response.data;

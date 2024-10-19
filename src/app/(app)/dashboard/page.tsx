@@ -56,7 +56,7 @@ function Page() {
     const fetchLinks = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:3000/api/getlinks");
+        const response = await axios.get("/api/getlinks");
         setLinks(response.data.data);
         // console.log("link", response.data.data);
         setLoading(false);
