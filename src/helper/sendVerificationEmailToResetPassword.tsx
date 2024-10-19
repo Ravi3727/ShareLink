@@ -18,7 +18,7 @@ export async function sendVerificationEmailToResetPassword(
 ): Promise<ApiResponse> {
   try {
 
-    // console.log("Identifier: " + username);
+    console.log("Identifier: " + username);
     const mailOptions = {
       from: process.env.MAIL_USER,
       to: identifier,
