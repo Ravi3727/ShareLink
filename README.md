@@ -24,7 +24,7 @@ Here’s a breakdown of the tech stack that powers ShareLink:
 - **MongoDB**: Stores all user data and links.
 
 ### Deployment:
-- **Vercel**: Used to host the frontend. You can check out the live app [here](https://oj-sigma.vercel.app/).
+- **Vercel**: Used to host the frontend. You can check out the live app [here]([https://share-link-ivory.vercel.app/]).
   
 ### Other Important Packages:
 - **Next-Auth**: For handling authentication.
