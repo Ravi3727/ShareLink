@@ -129,6 +129,7 @@ function HomeScreen() {
         });
         setNewLinkData({ title: "GitHub", url: "" });
         setLinkCount((prev) => prev - 1);
+        fetchLinks();
       } else {
         toast.error(result.message, { position: "bottom-right" });
       }
@@ -225,7 +226,7 @@ function HomeScreen() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="text-sm font-druk text-white">
+                  <div className="text-sm ml-2 font-druk text-white">
                     {link?.title}
                   </div>
                 </a>
@@ -293,7 +294,7 @@ function HomeScreen() {
                 { 
                 links.map((link, index) => (
                   <div
-                    key={link._id}
+                    key={link?._id}
                     draggable
                     onDragStart={() => onDragStart(index)}
                     onDragEnter={() => onDragEnter(index)}
