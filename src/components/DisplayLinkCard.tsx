@@ -165,28 +165,28 @@ function DisplayLinkCard({
   return (
     <div className="bg-white w-full md:w-[80%] overflow-x-hidden mx-auto h-full overflow-y-auto p-2 rounded-md">
       <div className="flex w-full justify-between items-center mb-4">
-        <div className="text-sm md:text-md font-semibold text-gray-600">Link #{idx}</div>
+        <div className="text-sm md:text-md font-semibold text-customBlack">Link #{idx}</div>
         <div className="flex  w-24 md:w-32 justify-between">
           <button
             disabled={loading}
             onClick={handleRemove}
-            className="text-sm md:text-md font-semibold text-red-600"
+            className="text-sm md:text-md font-semibold text-customRed"
           >
             {loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Delete"}
           </button>
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="text-sm md:text-md font-semibold text-gray-600"
+            className="text-sm md:text-md font-semibold text-customBlack"
           >
             {isEditing ? "Cancel" : "Update"}
           </button>
         </div>
       </div>
 
-      <div className="text-sm font-semibold text-gray-600 mb-1">Platform</div>
+      <div className="text-sm font-semibold text-customBlack mb-1">Platform</div>
       <div
         onClick={() => setActive(!active)}
-        className={`cursor-pointer hover:shadow-[10px_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] flex justify-between items-center mb-2 border-2 p-1 rounded-lg ${
+        className={`cursor-pointer md:hover:shadow-[10px_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] flex justify-between items-center mb-2 border-2 p-1 rounded-lg ${
           isEditing ? "" : "pointer-events-none"
         }`}
       >
@@ -196,7 +196,7 @@ function DisplayLinkCard({
             alt={`${isEditing ? editTitle : title} icon`}
             className="w-6 h-6 mr-2"
           />
-          <span className="text-sm font-semibold text-gray-600">
+          <span className="text-sm font-semibold text-customBlack">
             {isEditing ? editTitle : title}
           </span>
         </div>
@@ -204,7 +204,7 @@ function DisplayLinkCard({
       </div>
 
       {isEditing && active && (
-        <div className="mb-2">
+        <div className="mb-2 z-100 rounded-lg border-2 shadow-xl">
           {platforms.map((platform) => (
             <div
               key={platform}
@@ -220,25 +220,25 @@ function DisplayLinkCard({
         </div>
       )}
 
-      <div className="text-sm font-semibold text-gray-600 mb-1">URL</div>
+      <div className="text-sm font-semibold text-customBlack mb-1">URL</div>
       <input
         type="text"
         value={isEditing ? editUrl : url}
         onChange={(e) => setEditUrl(e.target.value)}
-        className={`w-full cursor-pointer border-2 rounded-lg p-2 mb-4 text-sm hover:shadow-[0_20px_20px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] ${
+        className={`w-full cursor-pointer border-2 rounded-lg p-2 mb-4 text-sm md:hover:shadow-[0_20px_20px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] ${
           isEditing ? "" : "pointer-events-none bg-gray-100"
         }`}
         placeholder="Enter your URL here"
       />
 
-      {urlError && <p className="text-red-500 text-sm">{urlError}</p>}
+      {urlError && <p className="text-customRed text-sm">{urlError}</p>}
 
       {isEditing && (
         <div className="flex space-x-2">
           <button
             disabled={updateloading}
             onClick={handleUpdate}
-            className="w-24 flex items-center justify-center hover:bg-purple-800 bg-purple-600 text-white font-semibold p-2 rounded-lg mt-2"
+            className="w-24 flex items-center justify-center hover:bg-opacity-90 bg-customPurple text-white font-semibold p-2 rounded-lg mt-2"
           >
             {updateloading ? (
               <Loader2 className="animate-spin h-5 w-5" />

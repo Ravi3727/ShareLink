@@ -99,19 +99,19 @@ function Page() {
         <div className="w-[80%] mx-auto h-full overflow-y-auto p-4 rounded-md shadow-md">
           <div className="flex w-full justify-center md:justify-end items-center mb-4">
             <Link href="/">
-              <div className="text-md border-2 border-solid bg-purple-600 hover:bg-purple-800 w-36 p-3 items-center justify-center flex rounded-lg font-semibold text-white h-12 ">
+              <div className="text-md border-2 border-solid bg-customPurple hover:bg-opacity-90 w-36 p-3 items-center justify-center flex rounded-lg font-semibold text-white h-12 ">
                 Add New Link
               </div>
             </Link>
           </div>
-          <div className="text-2xl font-druk font-semibold flex justify-center text-gray-600 mx-auto">
+          <div className="text-2xl font-druk font-semibold flex justify-center text-customBlack mx-auto">
             Your Links
           </div>
           <div className="flex w-full justify-between items-center mb-4">
             {loading ? (
               <div className="w-10/12 md:min-h-[360px] md:max-h-[360px] overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
-                <Loader2 className="animate-spin h-10 w-10 text-purple-900" />
-                <div className="text-lg leading-4 text-gray-500 font-druk font-semibold">
+                <Loader2 className="animate-spin h-10 w-10 text-customPurple" />
+                <div className="text-lg leading-4 text-customGray font-druk font-semibold">
                   Loading your links...
                 </div>
               </div>
@@ -159,7 +159,7 @@ function Page() {
           </div>
           {
               links.length === 0 && !loading && (
-                <div className="text-gray-500 font-druk leading-6 mx-auto font-semibold text-lg flex w-10/12 md:w-8/12 items-center justify-center text-center">
+                <div className="text-customGray font-druk leading-6 mx-auto font-semibold text-lg flex w-10/12 md:w-8/12 items-center justify-center text-center">
                   No links found. Add a new link to get started.
                 </div>
               )

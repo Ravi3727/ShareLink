@@ -36,7 +36,7 @@ function Navbar() {
               alt="linkIcon"
               className="w-[20px] h-[20px]"
             />
-            <div className="max-sm:hidden text-md font-bold leading-6 p-1 text-purple-800 text-opacity-90 font-druk">
+            <div className="max-sm:hidden text-md font-bold leading-6 p-1 text-customPurple text-opacity-90 font-druk">
               Links
             </div>
           </div>
@@ -50,7 +50,7 @@ function Navbar() {
               alt="profileIcon"
               className="w-[20px] h-[20px] md:w-[20px] md:h-[20px]"
             />
-            <div className="max-sm:hidden text-md font-bold leading-6 p-1 text-purple-800 text-opacity-90 font-druk">
+            <div className="max-sm:hidden text-md font-bold leading-6 p-1 text-customPurple text-opacity-90 font-druk">
               Profile Details
             </div>
           </div>
@@ -58,8 +58,8 @@ function Navbar() {
 
         {/* Preview Icon */}
         <Link href="/dashboard">
-          <div className="flex justify-center items-center w-[90px] h-[36px] rounded-xl hover:bg-purple-100">
-            <div className="max-sm:hidden text-md font-bold leading-6 p-1 text-purple-800 text-opacity-90 font-druk">
+          <div className="flex justify-center items-center w-[90px] h-[36px] rounded-xl border-2 border-solid p-1   hover:bg-purple-100">
+            <div className="max-sm:hidden text-md font-bold leading-6 text-customPurple text-opacity-90 font-druk ">
               Preview
             </div>
           </div>
@@ -106,13 +106,13 @@ function Navbar() {
         {session ? (
           <Button
             onClick={() => signOut()}
-            className="bg-purple-600 hover:bg-purple-800 text-white px-4 py-2"
+            className="bg-customPurple hover:bg-blue-600 text-white px-4 py-2"
           >
             LogOut
           </Button>
         ) : (
           <Link href="/signin">
-            <Button className="bg-purple-600 hover:bg-purple-800 text-white px-4 py-2">
+            <Button className="bg-customPurple hover:bg-opacity-90 text-white px-4 py-2">
               LogIn
             </Button>
           </Link>

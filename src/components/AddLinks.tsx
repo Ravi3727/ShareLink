@@ -72,7 +72,8 @@ function AddLinks({ setLinkCount, setNewLinkData }:LinkCountProps) {
         </div>
         <button
           onClick={handleRemove}
-          className="text-md font-semibold text-red-600"
+          className="text-md font-semibold text-customRed
+          "
         >
           {"Remove"}
         </button>

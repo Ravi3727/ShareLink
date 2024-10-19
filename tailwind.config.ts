@@ -14,6 +14,12 @@ const config: Config = {
 			InstrumentSans:["var(--font-instru)"]
 		},
   		colors: {
+			customBlue: 'rgba(45, 104, 255, 1)',
+			customLightBlack: 'rgba(26, 26, 26, 1)',
+			customRed : 'rgba(238, 57, 57, 1)',
+			customGray: 'rgba(115, 115, 115, 1)',
+			customBlack:'rgba(51, 51, 51, 1)',
+			customPurple: 'rgba(99, 60, 255, 1)',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

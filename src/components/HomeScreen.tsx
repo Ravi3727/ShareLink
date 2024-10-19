@@ -11,10 +11,10 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DisplayLinkCard from "./DisplayLinkCard";
 import iconRight from "@/images/icon-arrow-right.svg";
-import GitHubicon from "@/images/icon-github.svg";
-import YouTubeicon from "@/images/icon-youtube.svg";
-import LinkedInicon from "@/images/icon-linkedin.svg";
-import FaceBookicon from "@/images/icon-facebook.svg";
+import GitHubicon from "@/images/icon-githhub-white.svg";
+import YouTubeicon from "@/images/icon-youtube-white.svg";
+import LinkedInicon from "@/images/icon-linkedin-white.svg";
+import FaceBookicon from "@/images/icon-facebook-white.svg";
 import FrontEndManagericon from "@/images/icon-frontend-mentor.svg";
 import FreeCodeCampicon from "@/images/icon-freecodecamp.svg";
 import {
@@ -141,13 +141,13 @@ function HomeScreen() {
   const getBgColor = (title: string) => {
     switch (title) {
       case "YouTube":
-        return "bg-red-600";
+        return "bg-customRed";
       case "GitHub":
-        return "bg-black";
+        return "bg-customLightBlack";
       case "LinkedIn":
-        return "bg-blue-600";
+        return "bg-customBlue";
       case "Facebook":
-        return "bg-purple-600";
+        return "bg-customBlue";
       case "FreeCodeCamp":
         return "bg-green-600";
       default:
@@ -207,15 +207,15 @@ function HomeScreen() {
               key={index}
               className={`w-[210px] ${getBgColor(
                 link?.title
-              )} h-11 flex items-center justify-between rounded-lg p-2`}
+              )} h-11 flex items-center justify-between rounded-lg p-2 cursor-pointer`}
             >
               <div className="w-5/12 flex items-center justify-between">
                 <div>
                   {platformIcons[link?.title] && (
                     <Image
                       src={platformIcons[link?.title]}
-                      alt={`${link?.title} icon`}
-                      className="w-6 h-6"
+                      alt={`${link?.title} icon `}
+                      className="w-6 h-6 text-white"
                     />
                   )}
                 </div>
@@ -240,10 +240,10 @@ function HomeScreen() {
 
       <div className="flex flex-col lg:mt-4 w-7/12 max-lg:w-11/12 h-full justify-evenly gap-6">
         <div className="w-10/12 flex flex-col gap-2 h-full mx-auto mt-4">
-          <div className="text-2xl font-bold font-druk text-gray-800 opacity-90">
+          <div className="text-2xl font-bold font-druk text-customBlack ">
             Customize your links
           </div>
-          <div className="text-md text-gray-500 font-druk">
+          <div className="text-md text-customGray font-druk">
             Add/edit/remove links below and then share all your profiles!
           </div>
         </div>
@@ -251,21 +251,21 @@ function HomeScreen() {
         <div className="w-10/12 mx-auto">
           <Button
             onClick={addNewLink}
-            className="text-purple-800  hover:shadow-xl md:hover:shadow-[0_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] w-full bg-white font-bold border-2 border-purple-600 rounded-lg hover:bg-purple-100"
+            className="text-customPurple  hover:shadow-xl md:hover:shadow-[0_30px_30px_-1px_rgb(0,0,0,0.1),8px_12px_10px_-2px_rgb(0,0,0,0.1)] w-full bg-white font-bold border-2 border-customPurple rounded-lg hover:bg-purple-100"
           >
             + Add new link
           </Button>
         </div>
 
         {loading ? (
-          <div className="w-10/12 min-h-[360px] max-h-[360px]  overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
-            <Loader2 className="animate-spin h-10 w-10 text-purple-900" />
-            <div className="text-lg leading-4 text-gray-500 font-druk font-semibold">
+          <div className="w-10/12 min-h-[360px] max-h-[360px] overflow-x-hidden overflow-y-auto shadow-sm items-center flex justify-center flex-col rounded-xl mx-auto">
+            <Loader2 className="animate-spin h-10 w-10 text-customPurple" />
+            <div className="text-lg leading-4 text-customGray font-druk font-semibold">
               Loading your links...
             </div>
           </div>
         ) : (
-          <div className="w-10/12 min-h-[360px] max-h-[360px] overflow-y-auto  items-center flex justify-center flex-col rounded-xl mx-auto">
+          <div className="w-10/12 min-h-[360px] max-h-[360px] overflow-x-hidden overflow-y-auto  items-center flex justify-center flex-col rounded-xl mx-auto">
             {active === false && links.length === 0 ? (
               <div className="flex flex-col gap-4">
                 <NoLinkView />
@@ -287,8 +287,11 @@ function HomeScreen() {
                   ))}
                 </div>
               )}
-              <div className="w-full overflow-x-hidden border-2 rounded-xl  mx-auto link-list">
-                {links.map((link, index) => (
+              
+              
+              { links.length > 0 && <div className="w-full overflow-x-hidden border-2 rounded-xl  mx-auto link-list">
+                { 
+                links.map((link, index) => (
                   <div
                     key={link._id}
                     draggable
@@ -300,31 +303,32 @@ function HomeScreen() {
                     className="draggable-item "
                   >
                     <DisplayLinkCard
-                      linkId={link._id}
+                      linkId={link?._id}
                       idx={index + 1}
-                      title={link.title}
-                      url={link.url}
+                      title={link?.title}
+                      url={link?.url}
                       setLinks={setLinks}
                     />
                   </div>
                 ))}
               </div>
+}
             </div>
           </div>
         )}
 
-        <div className="w-11/12 mx-auto h-[2px] bg-gray-400"></div>
+        <div className="w-11/12 mx-auto h-[2px] bg-gray-200"></div>
 
         <div className="w-11/12 flex justify-center items-center max-md:mx-auto md:justify-end">
           <Button
             onClick={handleSave}
-            className={`bg-purple-600 hover:bg-purple-800 w-full md:w-32 text-white font-semibold border-2 border-purple-600 rounded-lg mb-4 ${
+            className={`bg-customPurple hover:bg-blue-600 w-full md:w-32 text-white font-semibold border-2 border-customPurple rounded-lg mb-4 ${
               links.length > 0 ? "" : "opacity-70"
             }`}
           >
             {submitLoading ? (
               <div className="flex gap-2">
-                <Loader2 className="animate-spin h-5 w-5 text-purple-400" />
+                <Loader2 className="animate-spin h-5 w-5 text-customPurple opacity-90" />
                 <div>Saving...</div>
               </div>
             ) : (
